@@ -45,8 +45,10 @@ class MachineGUI:
         self.instr_count = 0
         self.M.execution=3
         #TODO: remove comments from program
-        M.load_program([l for l in self.ed.text.get('0.0',tk.END).split('\n') if l],
-                       float(self.ent.get()))
+        lines = self.ed.text.get('0.0',tk.END).split('\n')
+        lines = [l.split('#')[0].strip() for l in lines]
+        lines = [l for l in lines if l]
+        M.load_program(lines, float(self.ent.get()))
     def turnoff(self):
         self.on=False
 
