@@ -11,15 +11,15 @@ class MachineGUI:
         self.lblRegs = tk.Label(self.controls_frame, text="Registers:", background='black',foreground='white')
         self.lblMemory = tk.Label(self.controls_frame, text="Memory:", background='black',foreground='white')
 
+        self.ent = tk.Entry(self.controls_frame, text='9.0', background='grey',foreground='white')
         self.on = False
-        def turnon(): self.on=True
-        def turnoff(): self.on=False
-        self.btnRun = tk.Button(self.controls_frame, text="Run", background='black',foreground='white', command=turnon)
-        self.btnStop = tk.Button(self.controls_frame, text="Stop", background='black',foreground='white', command=turnoff)
+        self.btnRun = tk.Button(self.controls_frame, text="Run", background='black',foreground='white', command=self.turnon)
+        self.btnStop = tk.Button(self.controls_frame, text="Stop", background='black',foreground='white', command=self.turnoff)
 
         self.lblRegs.pack()
         self.lblMemory.pack()
         self.btnRun.pack(side=tk.LEFT)
+        self.ent.pack()
         self.btnStop.pack(side=tk.RIGHT)
         self.controls_frame.pack()
 
@@ -30,14 +30,26 @@ class MachineGUI:
         self.pane.pack(fill='both', expand=1)
 
         self.step()
+
+    def turnon(self):
+        self.on=True
+        self.M.execution=3
+        #TODO: remove comments from program
+        M.load_program([l for l in self.ed.text.get('0.0',tk.END).split('\n') if l],
+                       float(self.ent.get()))
+    def turnoff(self):
+        self.on=False
+
     def step(self):
         if self.on:
-           print("woah!")
-           #self.M.step()
+           #print("woah!")
+           self.M.step()
+           if M.execution == -1:
+               self.on = False
            self.update()
         self.pane.after(self.__class__.UPDATE_DELAY, self.step)
     def update(self): # shows registers, and only first 8*4=32 el.s of memory
-        self.lblRegs['text'] = "Registers:\t" + '\t'.join(str(r) for r in M.registers)
+        self.lblRegs['text'] = "Registers:\t" + '\t'.join(str(round(r,4)) for r in M.registers)
         self.lblMemory['text'] = "Memory:\n" + '\n'.join('\t'.join(str(a) for a in M.memory[8*i:8*i+8]) for i in range(4))
 
 window = tk.Tk()

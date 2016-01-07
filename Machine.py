@@ -26,6 +26,7 @@ and the remaining program and variable space.
 '''
 
 class Machine:
+   PRECISION = 0.0001
    def __init__(self, num_addresses, num_registers, debug=False):
       self.memory = [0.0 for i in range(num_addresses)]
       self.registers = [0.0 for i in range(num_registers)]
@@ -39,6 +40,7 @@ class Machine:
       print('memory', ' '.join(str(s).replace(' ','_') for s in self.memory[:l])+'. . .')
       print('registers', self.registers)
    def run(self):
+      self.execution=3
       while self.execution != -1:
           if self.debug:
              self.print_mem()
@@ -65,5 +67,4 @@ class Machine:
    def modulo  (self, r, r_): self.registers[r_] = float(int(self.registers[r_])%int(self.registers[r]))
    def compare (self, r, r_):
       diff = self.registers[r_] - self.registers[r]
-      self.registers[r_] = -1.0 if diff<0.0 else \
-                           +1.0 if diff>0.0 else 0.0
+      self.registers[r_] = 0.0 if abs(diff)<self.__class__.PRECISION else diff/abs(diff)
