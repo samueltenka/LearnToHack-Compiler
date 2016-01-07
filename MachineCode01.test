@@ -1,0 +1,27 @@
+1024 8
+
+load 25 0
+load 26 1
+load 27 2
+load 1 3
+copy 0 4
+copy 3 5
+add 1 5
+copy 4 6
+add 5 6
+divide 2 6
+copy 6 7
+multiply 7 7
+compare 3 7
+jumpif0 23 7
+subtract 1 7
+jumpif0 21 7
+copy 6 4
+jumpif0 10 0
+copy 6 5
+jumpif0 10 0
+store 2 6
+jumpif0 -1 0
+0.0
+1.0
+2.0

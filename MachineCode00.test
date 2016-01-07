@@ -1,0 +1,6 @@
+1024 16
+
+load 1 0
+store 2 0
+load 0 0
+jumpif0 -1 0
