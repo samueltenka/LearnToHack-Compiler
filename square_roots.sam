@@ -1,0 +1,13 @@
+def sqrt(N):
+   hi = N+1
+   lo = 0
+   mid = (hi+lo)/2
+   mid2 = mid*mid
+   if mid2==N:
+      return mid
+   if mid2 > N
+      lo = mid
+      goto 4
+   if mid2 < N
+      high = mid
+      goto 4

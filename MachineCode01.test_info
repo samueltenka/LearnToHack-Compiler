@@ -1,0 +1,52 @@
+1024 8
+
+0.0 #PROGRAM INIT
+1.0
+2.0
+load 3 0 #[0] = literal 0
+load 4 1 #[1] = literal 1
+load 5 2 #[2] = literal 2
+load 1 3 #[3] = the number we want to take the sqrt of, taken from input sensor
+copy 0 4 #[4] = low estimate of sqrt, starting at 0.0
+copy 3 5 ##in these 2 lines, we initialize:
+add 1 5  ##[5] = high estimate of sqrt, starting at N+1
+copy 4 6    #
+add 5 6     # these 3 lines:  mid = (lo+hi)/2,
+divide 2 6  #[6] = average of high and low estimates
+copy 6 7
+multiply 7 7
+compare 3 7
+jumpif0 26 7 #jump to PROGRAM_EXIT if our estimate is just right
+subtract 1 7
+jumpif0 24 7 #too big is our estimate! jump to corrective code
+copy 6 5 #TOOSMALL
+jumpif0 16 0 #certainly jump to LOOP_START
+copy 6 4 #TOOBIG
+jumpif0 13 0 #certainly jump to LOOP_START
+store 6 0     #PROGRAM_EXIT
+jumpif0 -1 0
+
+
+def sqrt(N):
+   hi = N+1
+   lo = 0
+   ***
+   mid = (hi+lo)/2
+   mid2 = mid*mid
+   if mid2==N:
+      return mid
+   if mid2 > N
+      lo = mid
+      goto ***
+   if mid2 < N
+      high = mid
+      goto ***
+
+# 0 literal 0
+# 1 literal 1
+# 2 literal 2
+# 3 N
+# 4 low
+# 5 high
+# 6 mid
+# 7 mid2, and also comparison result

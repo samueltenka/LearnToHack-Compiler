@@ -1,0 +1,36 @@
+Here's a toy language we'll try to build a compiler for; 
+it's high-level --- it ascends beyond opcodes --- in that
+it allows the programmer to:
+* write arithmetic formulas like 3 * ( a + 2 )
+* control flow not with goto's, but with if's and while's
+* encapsulate code in callable subroutines
+* organize code and data in structures
+* exception handling
+* defend against error with const checking
+Of course, we're describing a subset of C.
+
+Definition first by example, then by CFG specification:
+EXAMPLE 0: Echo
+output <- input ;
+
+EXAMPLE 1: Even
+a <- input ;
+if ( a % 2 == 0 ) { a <- a / 2 ; }
+else { a <- 3 * a + 1 ; }
+output <- a ;
+
+EXAMPLE 2: Square Root
+a <- input ;
+lb <- 0 ;
+ub <- a ;
+while ( ! ( ub == lb ) ) { 
+   mid = ( ub + lb ) / 2; // Question: what's wrong with this in real life?
+   if ( ! ( ( ub + lb ) % 2 == 0 ) ) { mid <- mid - 0.5 ; }
+   if ( mid * mid > a ) { ub <- mid ; }
+   else { lb <- mid ; }
+}
+output <- lb ;
+
+EXAMPLE 3: -Primes- Quicksort?
+
+Question: what if instead of stack-based, have other-based "function calls"?
