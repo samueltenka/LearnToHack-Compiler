@@ -10,7 +10,7 @@ class Parser:
       self.tokenized = program_text.split()
       self.index = 0
       self.variable_addresses = {'input':0, 'output':1}
-      self.number_addresses = dict([])
+      self.number_addresses = dict([]); self.numbers = []
       self.next_free_address = 3
       self.machine_code = []
    def peek(self):
@@ -27,11 +27,20 @@ class Parser:
       self.next_free_address += 1
       return nfa
 
+   def write_constants_table(self):
+       l = len(self.machine_code)
+       for l in self.machine_code:
+           i, n, r = l.split(' ')
+           if i=='loadconst':
+               l[:] = 'load %s %s' % (int(self.number_addresses[n]) + l, r)
+       for n in self.numbers:
+           self.machine_code.append(n)
    def match_number(self):
       num=float(self.peek())
       if num not in self.number_addresses:
          self.number_addresses[num] = self.use_next_free_address()
-      self.gen_code('load',self.number_addresses[num],0)
+         self.numbers.append(num)
+      self.gen_code('loadconst',num,0)
       self.match(self.peek())
    def match_variable(self):
       var=self.peek()
