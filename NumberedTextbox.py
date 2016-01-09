@@ -38,7 +38,7 @@ class EditorClass(object):
             self.updateAllLineNumbers()
 
     def getLineNumbers(self):
-        offset = 2
+        offset = 4-1 #start numbering at line 4
         line = '%d' % offset
         col= ''
         ln = ''
