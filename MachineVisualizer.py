@@ -11,10 +11,10 @@ class MachineGUI:
         self.controls_frame = tk.Frame(master, relief=tk.SUNKEN, background='black')
         self.lblRegs = tk.Label(self.controls_frame, text="Registers:", background='black',foreground='white',font = ("Courier",8))
         self.lblMemory = tk.Label(self.controls_frame, text="Memory:", background='black',foreground='white',
-                                  font = ("Courier",8))
+           font = ("Courier",8))
         self.lblCounts = tk.Label(self.controls_frame, text="[][]", background='black',foreground='white',
-                          font = ("Courier",8))
-        self.ents = [tk.Entry(self.controls_frame, text='0.0', background='grey',foreground='white') for i in range(2)]
+           font = ("Courier",8))
+        self.ents = [tk.Entry(self.controls_frame, background='grey',foreground='white') for i in range(2)]
         self.lblOut = tk.Label(self.controls_frame, text="[][]", background='black',foreground='white',
                   font = ("Courier",8))
 

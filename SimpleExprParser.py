@@ -9,32 +9,32 @@ class Parser:
    def init_stack(self):
        print('set 6 1.0')
        print('set 7 50.0') # TODO: ensure beyond program
-   def pop_stack(self):
-       print('sub 6 7')
-       print('load 7 2')
-       print('sub 6 7')
-       print('load 7 1')
-       print('sub 6 7')
-       print('load 7 0')
-   def push_stack(self):
+   def store_state(self):
        print('store 7 0')
        print('add 6 7')
        print('store 7 1')
        print('add 6 7')
        print('store 7 2')
        print('add 6 7')
+   def load_state(self):
+       print('copy 0 3')
+       print('sub 6 7')
+       print('load 7 2')
+       print('sub 6 7')
+       print('load 7 1')
+       print('sub 6 7')
+       print('load 7 0')
+       print('copy 3 0')
    def rec(self, tok):
       assert(self.peek()==tok)
       self.pos += 1
    def rec_atom(self):
       if self.peek() == '(':
-         self.push_stack()
+         self.store_state()
          self.rec('(')
          self.rec_expr()
          self.rec(')')
-         print('copy 0 3')
-         self.pop_stack()
-         print('copy 3 0')
+         self.load_state()
       else:
          num = self.peek()
          print('set 0 '+num)

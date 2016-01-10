@@ -41,5 +41,5 @@ copy 3 0
 mul 1 0
 add 2 0
 #HALT:
-set 7 -1
-jump 7 0
+set 4 -1
+jump 4 0
