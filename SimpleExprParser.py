@@ -9,22 +9,21 @@ class Parser:
    def init_stack(self):
        print('set 6 1.0')
        print('set 7 50.0') # TODO: ensure beyond program
+   def init_stack(self):
+      print('#initializing stack...')
+      print('set 6 1.0')
+      print('set 7 50.0') # TODO: ensure beyond program
    def store_state(self):
-       print('store 7 0')
-       print('add 6 7')
-       print('store 7 1')
-       print('add 6 7')
-       print('store 7 2')
-       print('add 6 7')
+      print('#storing state...')
+      for r in '012':
+         print('store 7 '+r)
+         print('add 6 7')
    def load_state(self):
-       print('copy 0 3')
-       print('sub 6 7')
-       print('load 7 2')
-       print('sub 6 7')
-       print('load 7 1')
-       print('sub 6 7')
-       print('load 7 0')
-       print('copy 3 0')
+      print('#loading state...')
+      print('copy 0 3')
+      for r in '210':
+         print('sub 6 7')
+         print('load 7 '+r)
    def rec(self, tok):
       assert(self.peek()==tok)
       self.pos += 1
@@ -56,6 +55,8 @@ class Parser:
    def rec_program(self):
        self.init_stack()
        self.rec_expr()
+       print('set 4 3.0')
+       print('store 4 0')
 
 P = Parser('1.0 + 2.0 * 3.0 + 4.0 * ( 5.0 + 6.0 )')
 P.rec_program()
